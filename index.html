@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #fff0f5;
+            color: #ff1493;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        header, footer {
+            background-color: #ff69b4;
+            text-align: center;
+            padding: 15px;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin: 0;
+            padding-top: 10px;
+            animation: bounce 2s infinite;
+            color: #fff;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        main {
+            text-align: center;
+            padding: 15px;
+            background-color: #ffe4e1; /* Pale, light background color */
+            display: none; /* Initially hide the main content */
+        }
+
+        .intro p, .message p {
+            font-size: 1.2em;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .gallery {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .gallery img {
+            border: 4px solid #ff1493;
+            border-radius: 10px;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            animation: rotate 5s infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0); }
+            50% { transform: rotate(180deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        footer p {
+            font-size: 1.2em;
+            color: #fff;
+        }
+
+        .number {
+            position: fixed;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff69b4;
+            animation: number-float 8s infinite;
+            bottom: -30px;
+        }
+
+        @keyframes number-float {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(0, -150vh);
+                opacity: 0;
+            }
+        }
+
+        .sticker {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            animation: number-float 8s infinite;
+            bottom: -30px;
+        }
+
+        .surprise-btn, .card-btn {
+            font-size: 1.2em;
+            padding: 8px 15px;
+            margin: 15px;
+            background-color: #ff69b4;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        .card {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 500px;
+            background-color: #fff;
+            border: 4px solid #ff69b4;
+            border-radius: 10px;
+            z-index: 1000;
+            text-align: left;
+            animation: fadeIn 0.5s ease-in-out;
+            overflow: hidden;
+        }
+
+        .card-content {
+            display: flex;
+            flex-direction: row;
+            padding: 15px;
+        }
+
+        .card img {
+            width: 50%;
+            height: auto;
+            border-radius: 10px;
+            margin-right: 15px;
+        }
+
+        .card p {
+            font-size: 1em;
+            color: #ff69b4;
+            flex: 1;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff69b4;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .intro p, .message p {
+                font-size: 1em;
+            }
+
+            .gallery img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .surprise-btn, .card-btn {
+                font-size: 1em;
+            }
+
+            .card-content {
+                flex-direction: column;
+            }
+
+            .card img {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background-color: #ff1493;
+            animation: confetti-fall 5s linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Styles for "Wait for it!!!" message */
+        .wait-message {
+            font-size: 2em;
+            color: #ff69b4;
+            text-align: center;
+            margin-top: 50vh;
+            transform: translateY(-50%);
+            animation: fadeIn 3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="wait-message" id="wait-message">Wait for it!!!</div>
+    <header>
+        <h1>Happy Birthday, Sonikha Sara! (+_+) </h1>
+    </header>
+    <main>
+        <div class="intro">
+            <p>You're the most amazing person I know and I hope your birthday is as wonderful as you are!</p>
+            <p>Look at you turning 19! You're almost a young adult now. Be proud of how far you've come along and never look back.</p>
+        </div>
+        <button class="surprise-btn" onclick="showSurpriseCard()">Show Surprise Message</button>
+        <div class="gallery">
+            <img src="image1.jpg" alt="Image 1">
+            <img src="image2.jpg" alt="Image 2">
+            <img src="image3.jpg" alt="Image 3">
+            <img src="image4.jpg" alt="Image 4">
+        </div>
+        <button class="card-btn" onclick="showCard(1)">Open Card 1</button>
+        <button class="card-btn" onclick="showCard(2)">Open Card 2</button>
+        <button class="card-btn" onclick="showCard(3)">Open Card 3</button>
+        <button class="card-btn" onclick="showCard(4)">Open Card 4</button>
+        <div class="card" id="card1">
+            <button class="close-btn" onclick="closeCard(1)">X</button>
+            <div class="card-content">
+                <img src="image1.jpg" alt="Card Image 1">
+                <p>Celebrating You today! Here's to a lifetime of cherished memories and endless joy. Everything has its own place and time. If it hasn't happened yet, maybe its due later. And if not, then maybe sometimes things just arent't meant to be.</p>
+            </div>
+        </div>
+        <div class="card" id="card2">
+            <button class="close-btn" onclick="closeCard(2)">X</button>
+            <div class="card-content">
+                <img src="image2.jpg" alt="Card Image 2">
+                <p>Today marks the beginning of another extraordinary chapter. Here's to the adventures that await and the dreams yet to be realized. You already know I'l help and support u as much as I can with anything. Luckily, ur surrounded by gud ppl, so I won't have to do anything lol. Good luck with all ur exams too!</p>
+            </div>
+        </div>
+        <div class="card" id="card3">
+            <button class="close-btn" onclick="closeCard(3)">X</button>
+            <div class="card-content">
+                <img src="image3.jpg" alt="Card Image 3">
+                <p>Live boldly, love deeply, and laugh often. Life is what you make of it, so make it count! TVIS and NEET are a year behind you. U've already made it thru one year of clg. Its all cake walk from here. You've got this!!</p>
+            </div>
+        </div>
+        <div class="card" id="card4">
+            <button class="close-btn" onclick="closeCard(4)">X</button>
+            <div class="card-content">
+                <img src="image4.jpg" alt="Card Image 4">
+                <p>There is so much I can say, but writting all that isn't really the point of this. I want you to know, its not about love or hate. It's about doing something different. Something memorable. Once again, Happiest of Birthdays, Soni!!</p>
+            </div>
+        </div>
+        <div class="card" id="surprise-card">
+            <button class="close-btn" onclick="closeCard()">X</button>
+            <div class="card-content">
+                <img src="surprise-image.jpg" alt="Surprise Image">
+                <p>Surprise! Shiro's got something to say too! "Très bon anniversaire !" You deserve all the happiness in the world and wishing all your hopes and dreams to come true. (he's also telling you to eat healthy and drink plenty of water, not just pasta and juice meow!) </p> 
+        </div>
+    </main>
+    <footer>
+        <p>Wishing you all the Joy and Success in the Universe!</p>
+        <p>With Luv, Daksh. </p>
+    </footer>
+    <script>
+        const waitMessage = document.getElementById('wait-message');
+        const mainContent = document.querySelector('main');
+        const header = document.querySelector('header');
+        const footer = document.querySelector('footer');
+
+        // Show main content after initial wait
+        function showMainContent() {
+            waitMessage.style.display = 'none';
+            mainContent.style.display = 'block';
+            header.style.display = 'block';
+            footer.style.display = 'block';
+            triggerConfetti();
+        }
+
+        // Set timeout to show main content after 6 seconds
+        setTimeout(showMainContent, 6000);
+
+        // Show Surprise Card
+        function showSurpriseCard() {
+            const card = document.getElementById('surprise-card');
+            card.style.display = 'block';
+        }
+
+        // Show Cards
+        function showCard(cardNumber) {
+            const card = document.getElementById(`card${cardNumber}`);
+            card.style.display = 'block';
+        }
+
+        // Close Cards
+        function closeCard(cardNumber) {
+            if (cardNumber) {
+                const card = document.getElementById(`card${cardNumber}`);
+                card.style.display = 'none';
+            } else {
+                const surpriseCard = document.getElementById('surprise-card');
+                surpriseCard.style.display = 'none';
+            }
+        }
+
+        // Floating Numbers
+        function createFloatingNumber() {
+            const number = document.createElement('div');
+            number.className = 'number';
+            number.innerText = '19';
+            number.style.left = Math.random() * window.innerWidth + 'px';
+            document.body.appendChild(number);
+
+            setTimeout(() => {
+                number.remove();
+            }, 8000);
+        }
+
+        // Floating Stickers
+        const stickers = ['🎂', '🎉', '🎁', '🎈'];
+
+        function createFloatingSticker() {
+            const sticker = document.createElement('div');
+            sticker.className = 'sticker';
+            sticker.innerText = stickers[Math.floor(Math.random() * stickers.length)];
+            sticker.style.left = Math.random() * window.innerWidth + 'px';
+            document.body.appendChild(sticker);
+
+            setTimeout(() => {
+                sticker.remove();
+            }, 8000);
+        }
+
+        // Show floating numbers and stickers
+        setInterval(createFloatingNumber, 1000);
+        setTimeout(() => {
+            setInterval(createFloatingSticker, 1000);
+        }, 6000);
+
+        // Confetti
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * window.innerWidth + 'px';
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            document.body.appendChild(confetti);
+
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }
+
+        function triggerConfetti() {
+            for (let i = 0; i < 100; i++) {
+                setTimeout(createConfetti, Math.random() * 5000);
+            }
+        }
+    </script>
+</body>
+</html>
